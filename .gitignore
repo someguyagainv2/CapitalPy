@@ -3,3 +3,5 @@ Capital/ignore.py
 /Capital/__pycache__
 /Capital/capital.egg-info
 /Capital/dist
+ignore.py
+ignore.txt
