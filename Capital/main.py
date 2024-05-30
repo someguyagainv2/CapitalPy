@@ -101,15 +101,61 @@ class accounts():
 
     # END
 
-    def accountsamount(self): # return integer of how many accounts is on your account
+    def amount(self): # return integer of how many accounts is on your account
         return len(self.accounts)
     
-    def returnallaccounts(self): # returns json of all the accounts 
+    def returnall(self): # returns json of all the accounts 
         return self.accounts
     
-    def getaccountinfo(self):
+    def getinfo(self): # Returns json information on all the account paramaters
         accountPrefRequest = requests.get(self.backendURL+"/accounts/preferences", headers=self.headers)
 
         if accountPrefRequest.status_code >= 400: raise ValueError(accountPrefRequest.json()["errorCode"])
-        
+        return accountPrefRequest.json()
     
+    def leverages(self): # return all leverages related information
+        accountPrefRequest = requests.get(self.backendURL+"/accounts/preferences", headers=self.headers)
+
+        if accountPrefRequest.status_code >= 400: raise ValueError(accountPrefRequest.json()["errorCode"])
+        return accountPrefRequest.json()["leverages"]
+    
+    # leverages information
+    
+    def getshares(self): # return all shares information 
+        accountPrefRequest = requests.get(self.backendURL+"/accounts/preferences", headers=self.headers)
+
+        if accountPrefRequest.status_code >= 400: raise ValueError(accountPrefRequest.json()["errorCode"])
+        return accountPrefRequest.json()["leverages"]["SHARES"]
+    
+    def getcurrencies(self): # return all currencies information 
+        accountPrefRequest = requests.get(self.backendURL+"/accounts/preferences", headers=self.headers)
+
+        if accountPrefRequest.status_code >= 400: raise ValueError(accountPrefRequest.json()["errorCode"])
+        return accountPrefRequest.json()["leverages"]["CURRENCIES"]
+
+    def getindices(self): # return all indices information 
+        accountPrefRequest = requests.get(self.backendURL+"/accounts/preferences", headers=self.headers)
+
+        if accountPrefRequest.status_code >= 400: raise ValueError(accountPrefRequest.json()["errorCode"])
+        return accountPrefRequest.json()["leverages"]["INDICES"]
+    
+    def getcrypto(self): # return all cryptocurrencies information 
+        accountPrefRequest = requests.get(self.backendURL+"/accounts/preferences", headers=self.headers)
+
+        if accountPrefRequest.status_code >= 400: raise ValueError(accountPrefRequest.json()["errorCode"])
+        return accountPrefRequest.json()["leverages"]["CRYPTOCURRENCIES"]
+    
+    def getcommodities(self): # return all commodities information 
+        accountPrefRequest = requests.get(self.backendURL+"/accounts/preferences", headers=self.headers)
+
+        if accountPrefRequest.status_code >= 400: raise ValueError(accountPrefRequest.json()["errorCode"])
+        return accountPrefRequest.json()["leverages"]["COMMODITIES"]
+    
+    # LEVERAGES INFORMATION END
+
+    def update(self, newPreferences=None):
+        if newPreferences == None or newPreferences=="": raise ValueError("newPreferences is empty")
+
+        updateAccountRequest = requests.put(self.backendURL+"/accounts/preferences", headers=self.headers, json=newPreferences)
+        if updateAccountRequest.status_code >= 400: raise ValueError(updateAccountRequest.json()["errorCode"])
+        return updateAccountRequest.json()["leverages"]["COMMODITIES"]
