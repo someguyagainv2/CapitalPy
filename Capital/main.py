@@ -73,4 +73,9 @@ class capital():
         if currencySymbol: return f'{self.accountInfo["accountInfo"]["available"]}{self.accountInfo["accountInfo"]["available"]}'
         else: return f'{self.accountInfo["accountInfo"]["available"]}'
 
+    def accounttype(self): # Returns the type of account.
+        return self.accountInfo["accountType"]
+    
+    # ACCOUNT INFORMATION END
+
     
