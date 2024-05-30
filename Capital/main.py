@@ -93,7 +93,7 @@ class accounts():
 
         # send a test request to make sure session information is actually correct
 
-        checkRequest = requests.get(self.backendURL+"/accounts")
+        checkRequest = requests.get(self.backendURL+"/accounts", headers=sessionInformation)
         if checkRequest.status_code >= 400: raise ValueError(checkRequest.json()["errorCode"])
 
         self.headers = sessionInformation # SET HEADERS FOR CLASS
@@ -101,5 +101,15 @@ class accounts():
 
     # END
 
-    def accountsamount(self):
+    def accountsamount(self): # return integer of how many accounts is on your account
         return len(self.accounts)
+    
+    def returnallaccounts(self): # returns json of all the accounts 
+        return self.accounts
+    
+    def getaccountinfo(self):
+        accountPrefRequest = requests.get(self.backendURL+"/accounts/preferences", headers=self.headers)
+
+        if accountPrefRequest.status_code >= 400: raise ValueError(accountPrefRequest.json()["errorCode"])
+        
+    
