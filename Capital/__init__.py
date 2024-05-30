@@ -1,4 +1,5 @@
 from main import *
+from __accounts__ import *
 
 __title__ = "capital"
 __author__ = "malakia"
