@@ -57,5 +57,20 @@ class capital():
         return {"type": self.accountInfo["currencyIsoCode"], "symbol": self.accountInfo["currencySymbol"]}
     
     def balance(self, currencySymbol: bool=False): # Return the account balance and the currency symbol at the start depending on True or False
-        if currencySymbol: return f'{self.currency["symbol"]}{self.accountInfo["accountInfo"]["balance"]}'
+        if currencySymbol: return f'{self.currency()["symbol"]}{self.accountInfo["accountInfo"]["balance"]}'
         else: return f'{self.accountInfo["accountInfo"]["balance"]}'
+
+    def hasdemoaccount(self): # returns bool if there's a demo account
+        return f'{self.accountInfo["hasActiveDemoAccounts"]}'
+    
+    def hasliveaccount(self): # Returns bool on if there's a live account
+        return f'{self.accountInfo["hasActiveLiveAccounts"]}'
+    
+    def clientId(self): # Returns the clientId currently logged in
+        return f'{self.accountInfo["clientId"]}'
+    
+    def available(self, currencySymbol: bool=False): # Returns the available balance of account and currency symbol depending on bool value
+        if currencySymbol: return f'{self.accountInfo["accountInfo"]["available"]}{self.accountInfo["accountInfo"]["available"]}'
+        else: return f'{self.accountInfo["accountInfo"]["available"]}'
+
+    
