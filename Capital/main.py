@@ -153,9 +153,14 @@ class accounts():
     
     # LEVERAGES INFORMATION END
 
-    def update(self, newPreferences=None):
+    def update(self, newPreferences=None): # Update preferences on capital account
         if newPreferences == None or newPreferences=="": raise ValueError("newPreferences is empty")
 
         updateAccountRequest = requests.put(self.backendURL+"/accounts/preferences", headers=self.headers, json=newPreferences)
         if updateAccountRequest.status_code >= 400: raise ValueError(updateAccountRequest.json()["errorCode"])
         return updateAccountRequest.json()["leverages"]["COMMODITIES"]
+    
+    def updatedemo(self, amount: int=1000): # Update the demo account balance to new value
+        updateDemoRequest = requests.put(self.backendURL+"/accounts/topUp", headers=self.headers)
+        if updateDemoRequest.status_code >= 400: raise ValueError(updateDemoRequest.json()["errorCode"])
+        return updateDemoRequest.json()["successful"]
