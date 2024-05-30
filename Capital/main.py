@@ -48,6 +48,9 @@ class capital():
 
         if sessionRequest.status_code >= 400: raise ValueError(sessionRequest.json()["errorCode"]) # If capital.com returns error status above 400
         return sessionRequest.json()
+    
+    def returnSession(self): # RETURNS ACCOUNT INFORMATION
+        return self.sessionInfo
 
     # SESSION END ENDPOINTS
 
@@ -78,4 +81,25 @@ class capital():
     
     # ACCOUNT INFORMATION END
 
-    
+
+class accounts():
+    def __init__(self, sessionInformation=None):
+        if sessionInformation == None or sessionInformation == "": ValueError("sessionInformation is empty")
+
+        # CONSTANTS
+
+        self.APIVersion = "1"
+        self.backendURL = "https://api-capital.backend-capital.com/api/v{0}".format(self.APIVersion)
+
+        # send a test request to make sure session information is actually correct
+
+        checkRequest = requests.get(self.backendURL+"/accounts")
+        if checkRequest.status_code >= 400: raise ValueError(checkRequest.json()["errorCode"])
+
+        self.headers = sessionInformation # SET HEADERS FOR CLASS
+        self.accounts = checkRequest.json()["accounts"] # SAVE THIS INFORMATION FOR IF THEY WANT ACCOUNT INFORMATION
+
+    # END
+
+    def accountsamount(self):
+        return len(self.accounts)
